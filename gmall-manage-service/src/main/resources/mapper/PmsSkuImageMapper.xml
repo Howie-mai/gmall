@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhku.mh.gmall.manage.mapper.PmsSkuImageMapper">
+
+    <insert id="batchInsertSkuImage">
+        INSERT INTO pms_sku_image (
+			`sku_id`,`img_name`,`img_url`,`spu_img_id`,`is_default`
+		)
+		VALUES
+		<foreach collection="list" item="item" separator="," index="index">
+			(
+				#{item.skuId},#{item.imgName},#{item.imgUrl},#{item.spuImgId},#{item.isDefault}
+			  )
+		</foreach>
+
+
+    </insert>
+
+</mapper>

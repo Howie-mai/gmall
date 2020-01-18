@@ -51,6 +51,8 @@
         <jest.version>5.3.3</jest.version>
         <jna.version>4.5.1</jna.version>
         <beanUtils.version>1.9.3</beanUtils.version>
+        <tx.version>5.1.8.RELEASE</tx.version>
+        <netty.version>4.1.39.Final</netty.version>
     </properties>
 
     <dependencyManagement>
@@ -156,6 +158,12 @@
                 <version>${jedis.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>RELEASE</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
             <!--<dependency>-->
                 <!--<groupId>org.redisson</groupId>-->
@@ -183,7 +191,17 @@
                 <version>${beanUtils.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${tx.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-common</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
