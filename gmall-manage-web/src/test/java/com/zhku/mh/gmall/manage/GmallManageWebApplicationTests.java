@@ -27,7 +27,8 @@ public class GmallManageWebApplicationTests {
 
         StorageClient storageClient = new StorageClient(trackerServer, null);
 
-        String fileName = "D:\\huan.jpg";
+//        String fileName = "C:\\Users\\MH\\Pictures\\QQ图片20170227201028.png";
+        String fileName = "C:\\Users\\MH\\Pictures\\704_1540818_523209.jpg";
 
         String fileNames[] = storageClient.upload_file(fileName,"jpg",null);
 

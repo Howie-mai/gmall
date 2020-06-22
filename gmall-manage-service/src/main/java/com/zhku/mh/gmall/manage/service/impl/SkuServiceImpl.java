@@ -2,6 +2,7 @@ package com.zhku.mh.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.zhku.mh.gmall.bean.PmsSkuAttrValue;
 import com.zhku.mh.gmall.bean.PmsSkuImage;
 import com.zhku.mh.gmall.bean.PmsSkuInfo;
 import com.zhku.mh.gmall.manage.mapper.PmsSkuAttrValueMapper;
@@ -88,6 +89,21 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(String productId) {
         return skuInfoMapper.selectSkuSaleAttrValueListBySpu(productId);
+    }
+
+    @Override
+    public List<PmsSkuInfo> getAllSku(String catalog3Id) {
+        List<PmsSkuInfo> pmsSkuInfos = skuInfoMapper.selectAll();
+        for (PmsSkuInfo skuInfo : pmsSkuInfos){
+            String skuId = skuInfo.getId();
+
+            PmsSkuAttrValue pmsSkuAttrValue = new PmsSkuAttrValue();
+            pmsSkuAttrValue.setSkuId(skuId);
+            List<PmsSkuAttrValue> select = skuAttrValueMapper.select(pmsSkuAttrValue);
+
+            skuInfo.setSkuAttrValueList(select);
+        }
+        return pmsSkuInfos;
     }
 
     @Override

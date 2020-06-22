@@ -3,8 +3,11 @@ package com.zhku.mh.gmall.manage;
 import com.zhku.mh.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.zhku.mh.gmall.service.CacheService;
 import com.zhku.mh.gmall.service.util.RedisUtil;
+import com.zhku.mh.gmall.service.util.RedissonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,20 +22,23 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan(basePackages = "com.zhku.mh.gmall")
 public class GmallManageServiceApplicationTests {
     @Autowired
-    private PmsProductSaleAttrMapper saleAttrMapper;
-
-    @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
-    private CacheService cacheService;
+    private RedissonClient redissonClient;
 
     @Test
     public void contextLoads() {
-//        List<PmsProductSaleAttr> list = saleAttrMapper.getSpuSaleAttrListCheckBySku("11","1");
-//
-//        System.out.println(list.size());
-        System.out.println(cacheService.ping());
+        //可重入锁
+       RLock rLock = redissonClient.getLock("lock");//声明锁
+
+       rLock.lock();//加锁
+       try{
+           //do something
+       }finally {
+           rLock.unlock();//解锁
+       }
+        System.out.println(rLock.getName());
     }
 
 }

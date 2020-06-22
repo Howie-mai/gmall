@@ -7,5 +7,5 @@ package com.zhku.mh.common.constant;
  * Author： mh
  */
 public class FastDFSConstant {
-    public final static String DOMAIN = "http://101.200.166.227";
+    public final static String DOMAIN = "http://hymbb.cn";
 }
