@@ -3,4 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhku.mh.gmall.manage.mapper.PmsBaseAttrInfoMapper">
+
+    <resultMap id="InfoResultMap" type="com.zhku.mh.gmall.bean.PmsBaseAttrInfo" autoMapping="true">
+        <result column="ai_id" property="id"/>
+        <collection property="attrValueList" ofType="com.zhku.mh.gmall.bean.PmsBaseAttrValue" autoMapping="true">
+            <result column="av_id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAttrValueListByValueIds" resultMap="InfoResultMap">
+        SELECT
+          ai.id as ai_id,ai.attr_name,ai.catalog3_id,
+
+          av.id as av_id,av.value_name,av.attr_id
+        FROM pms_base_attr_info ai
+          LEFT JOIN pms_base_attr_value av on ai.id = av.attr_id
+        where av.id in ( ${valueIdStr} )
+    </select>
 </mapper>

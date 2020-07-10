@@ -5,6 +5,7 @@ import com.zhku.mh.gmall.bean.PmsBaseAttrValue;
 import com.zhku.mh.gmall.bean.PmsBaseSaleAttr;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * ClassName：
@@ -23,4 +24,6 @@ public interface AttrService {
     String delAttrValue(String attrValueId);
 
     List<PmsBaseSaleAttr> queryBaseSaleAttrList();
+
+    List<PmsBaseAttrInfo> getAttrValueListByValueIds(Set<String> valueIdSet);
 }

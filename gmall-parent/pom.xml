@@ -39,7 +39,7 @@
         <curator-client.version>2.12.0</curator-client.version>
         <selenium.version>2.45.0</selenium.version>
         <mybatis.version>1.3.2</mybatis.version>
-        <nekohtml.version>1.9.20</nekohtml.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
         <xml-apis.version>1.4.01</xml-apis.version>
         <batik-ext.version>1.9.1</batik-ext.version>
         <jsoup.version>1.11.2</jsoup.version>

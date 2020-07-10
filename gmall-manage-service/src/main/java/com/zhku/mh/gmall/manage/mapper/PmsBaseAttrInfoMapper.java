@@ -14,4 +14,5 @@ import java.util.List;
  * Author： mh
  */
 public interface PmsBaseAttrInfoMapper extends Mapper<PmsBaseAttrInfo> {
+    List<PmsBaseAttrInfo> selectAttrValueListByValueIds(@Param("valueIdStr") String valueIdStr);
 }

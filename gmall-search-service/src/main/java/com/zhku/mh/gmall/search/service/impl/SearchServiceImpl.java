@@ -11,6 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -110,6 +113,10 @@ public class SearchServiceImpl implements SearchService {
 
         //sort
         searchSourceBuilder.sort("hotScore",SortOrder.DESC);
+
+        //aggs聚合
+        TermsAggregationBuilder group_by = AggregationBuilders.terms("group_attr").field("skuAttrValueList.valueId");
+        searchSourceBuilder.aggregation(group_by);
 
        return searchSourceBuilder.toString();
 

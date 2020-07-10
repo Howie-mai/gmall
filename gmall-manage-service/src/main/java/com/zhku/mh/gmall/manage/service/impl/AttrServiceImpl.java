@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * ClassName：
@@ -127,5 +128,13 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public List<PmsBaseSaleAttr> queryBaseSaleAttrList() {
         return saleAttrMapper.selectAll();
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueListByValueIds(Set<String> valueIdSet) {
+
+        String valueIdStr = StringUtils.join(valueIdSet, ",");
+        List<PmsBaseAttrInfo> infoList = attrInfoMapper.selectAttrValueListByValueIds(valueIdStr);
+        return infoList;
     }
 }
