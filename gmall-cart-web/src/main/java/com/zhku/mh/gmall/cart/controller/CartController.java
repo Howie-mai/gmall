@@ -6,7 +6,8 @@ import com.zhku.mh.gmall.bean.OmsCartItem;
 import com.zhku.mh.gmall.bean.PmsSkuInfo;
 import com.zhku.mh.gmall.service.CartService;
 import com.zhku.mh.gmall.service.SkuService;
-import com.zhku.mh.web.util.CookieUtil;
+import com.zhku.mh.gmall.web.annotations.LoginRequired;
+import com.zhku.mh.gmall.web.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,7 +62,7 @@ public class CartController {
         omsCartItem.setQuantity(new BigDecimal(num));
 
         //判断用户是否登录
-        String memberId = "1";
+        String memberId = request.getAttribute("memberId") == null ? "" : request.getAttribute("memberId").toString();
 
         if (StringUtils.isBlank(memberId)) {
             //未登录，走cookie
@@ -171,7 +172,7 @@ public class CartController {
     @RequestMapping("checkCart")
     public String checkCart(String isChecked,String skuId,HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap) {
 
-        String memberId = "1";
+        String memberId = request.getAttribute("memberId") == null ? "" : request.getAttribute("memberId").toString();
 
         // 调用服务，修改状态
         OmsCartItem omsCartItem = new OmsCartItem();
@@ -186,6 +187,15 @@ public class CartController {
         BigDecimal totalAmount =  getTotalAmount(omsCartItems);
         modelMap.put("totalAmount",totalAmount);
         return "cartListInner";
+    }
+
+    @RequestMapping("toTrade")
+    @LoginRequired(loginSuccess = true)
+    public String toTrade(HttpServletRequest request,HttpServletResponse response,HttpSession session,ModelMap modelMap){
+
+
+
+        return "toTrade";
     }
 
     @RequestMapping("success")

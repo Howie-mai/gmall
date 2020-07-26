@@ -1,4 +1,6 @@
-package com.zhku.mh.web.util;
+package com.zhku.mh.gmall.web.util;
+
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -116,5 +118,18 @@ public class CookieUtil {
      */
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
         setCookie(request, response, cookieName, null, 0, false);
+    }
+
+    public static String getIp(HttpServletRequest request){
+        String ip = request.getHeader("x-forwarded-for");
+        if (StringUtils.isBlank(ip)) {
+            // 从request中获取ip
+            ip = request.getRemoteAddr();
+            if (StringUtils.isBlank(ip)) {
+                ip = "127.0.0.1";
+            }
+        }
+
+        return ip;
     }
 }

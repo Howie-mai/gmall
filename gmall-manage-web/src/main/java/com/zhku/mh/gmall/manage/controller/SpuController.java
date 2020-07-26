@@ -5,7 +5,7 @@ import com.zhku.mh.gmall.bean.PmsProductImage;
 import com.zhku.mh.gmall.bean.PmsProductInfo;
 import com.zhku.mh.gmall.bean.PmsProductSaleAttr;
 import com.zhku.mh.gmall.service.SpuService;
-import com.zhku.mh.web.util.PmsUploadUtil;
+import com.zhku.mh.gmall.web.util.PmsUploadUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
