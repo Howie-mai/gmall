@@ -11,28 +11,28 @@
 
 		<header>
 			<a href="http://www.baidu.com"><img src="/img/logo1.jpg"/></a><p>欢迎登录</p>
- 
+
 		</header>
-		
+
 		<div class="top-2">
 			<div class="top-2a">
-				 
+
 				<p> </p>
 			</div>
 		</div>
-		
+
 		<!--大图-->
 		<div class="top-3">
 			<div class="img_1">
 				<img src="/img/5731485aN1134b4f0.jpg"/>
 			</div>
 			<div id="sign">
- 
+
 				<div class="si_cen">
 					<h2 class="act btn1">用户登录</h2>
-					 
+
 				</div>
- 
+
 				<div class="si_bom1 tab" style="display: block;">
 					<div  class="error">
 						请输入账户名和密码
@@ -60,7 +60,7 @@
 					</form>
 				</div>
 			<div class="si_out">
- 
+
 				<h5 class="rig">
 						<img src="/img/4de5019d2404d347897dee637895d02b_25.png"/>
 						<span><a href="#">立即注册</a></span>
@@ -69,13 +69,13 @@
 			</div>
 		</div>
 
-		
+
 		<!--底部-->
-		 <input type="text" th:value="${ReturnUrl}" id="ReturnUrl" />
-		
+		 <input type="text" th:value="${returnUrl}" id="returnUrl" />
+
 	</body>
 	<script language="JavaScript">
-		
+
 			function submitLogin() {
 				var username = $("#username").val();
                 var password = $("#password").val();
@@ -84,12 +84,12 @@
 						alert("用户名或者密码错误");
 					}else{
                         // 验证token是否为空或者异常
-                        window.location.href=$("#ReturnUrl").val()+"?token="+token;
+                        window.location.href=$("#returnUrl").val()+"?token="+token;
 					}
 				});
             }
 
-			
+
 			var btn2=document.getElementsByClassName('btn2')[0];
 			var user=document.getElementsByClassName('user')[0];
 			var pass=document.getElementsByClassName('password')[0];
@@ -98,27 +98,27 @@
 			var err_img1=document.getElementsByClassName('err_img1')[0];
 
 			var err_img2=document.getElementsByClassName('err_img2')[0];
-		 
-			
-			
-			
-			
+
+
+
+
+
 			 user.onfocus=function(){
-                 
+
                 user.style.border='1px solid #999';
 
 		 }
 
             pass.onfocus=function(){
-                
+
                 pass.style.border='1px solid #999';
             }
             user.onblur=function(){
-                 
+
                 user.style.border='1px solid green';
             }
             pass.onblur=function(){
-                
+
                 pass.style.border='1px solid green';
             }
 	</script>

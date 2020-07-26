@@ -74,7 +74,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (!HttpClientUtil.SUCCESS.equals(success)) {
                 // 重定向passport登录
                 StringBuffer requestUrl = request.getRequestURL();
-                response.sendRedirect("http://passport.gmall.com:8085/index?ReturnUrl=" + requestUrl);
+                response.sendRedirect("http://passport.gmall.com:8085/index?returnUrl=" + requestUrl);
                 return false;
             }
             // 需要将token携带的用户信息写入

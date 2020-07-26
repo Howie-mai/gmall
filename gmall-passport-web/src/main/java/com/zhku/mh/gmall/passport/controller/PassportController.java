@@ -1,12 +1,14 @@
 package com.zhku.mh.gmall.passport.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.sun.xml.internal.bind.v2.TODO;
 import com.zhku.mh.gmall.bean.UmsMember;
+import com.zhku.mh.gmall.service.CartService;
 import com.zhku.mh.gmall.service.UserService;
 import com.zhku.mh.gmall.web.annotations.LoginRequired;
 import com.zhku.mh.gmall.web.util.CookieUtil;
 import com.zhku.mh.gmall.web.util.JwtUtil;
-import jdk.nashorn.internal.ir.annotations.Reference;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +28,12 @@ import java.util.Map;
 @Controller
 public class PassportController {
 
+    /**
+     * TODO 登录同步cookie购物车数据
+     */
+    @Reference
+    private CartService cartService;
+
     @Reference
     private UserService userService;
 
@@ -40,13 +48,11 @@ public class PassportController {
 
         if (umsMemberLogin != null) {
             // 登录成功
-
-
             // 用jwt制造token
             String userId = umsMemberLogin.getId();
             String nickname = umsMemberLogin.getNickname();
 
-            Map<String, Object> userMap = new HashMap<>();
+            Map<String, Object> userMap = new HashMap<>(4);
             userMap.put("memberId", userId);
             userMap.put("nickname", nickname);
 
@@ -56,6 +62,8 @@ public class PassportController {
 
             // 将token存入redis
             userService.addUserToken(token,userId);
+
+            // TODO 登录同步cookie购物车数据
 
         } else {
             // 登录失败
@@ -86,9 +94,9 @@ public class PassportController {
 
     @RequestMapping("/index")
     @LoginRequired(loginSuccess = false)
-    public String index(String ReturnUrl, ModelMap modelMap) {
+    public String index(String returnUrl, ModelMap modelMap) {
 
-        modelMap.put("ReturnUrl", ReturnUrl);
+        modelMap.put("returnUrl", returnUrl);
         return "index";
     }
 }
