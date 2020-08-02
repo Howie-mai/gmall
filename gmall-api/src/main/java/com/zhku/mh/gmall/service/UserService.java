@@ -19,4 +19,8 @@ public interface UserService {
     UmsMember login(UmsMember umsMember);
 
     void addUserToken(String token, String userId);
+
+    void addOuthUser(UmsMember member);
+
+    UmsMember selectOneByUmsMember(UmsMember member);
 }

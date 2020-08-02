@@ -16,3 +16,6 @@ user-service ： dubbo(20883)
 user-web ： port 8080
 passprot-web : 8085
 
+order-service ： dubbo(20884)
+order-web ： port 8086
+
