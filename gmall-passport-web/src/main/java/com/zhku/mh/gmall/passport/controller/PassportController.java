@@ -178,9 +178,9 @@ public class PassportController {
 
     @RequestMapping("/index")
     @LoginRequired(loginSuccess = false)
-    public String index(String returnUrl, ModelMap modelMap) {
+    public String index(ModelMap modelMap,HttpServletRequest request) {
 
-        modelMap.put("returnUrl", returnUrl);
+        modelMap.put("returnUrl", request.getRequestURL());
         return "index";
     }
 
