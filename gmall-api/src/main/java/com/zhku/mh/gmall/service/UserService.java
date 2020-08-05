@@ -20,7 +20,9 @@ public interface UserService {
 
     void addUserToken(String token, String userId);
 
-    void addOuthUser(UmsMember member);
+    String addOuthUser(UmsMember member);
 
     UmsMember selectOneByUmsMember(UmsMember member);
+
+    UmsMemberReceiveAddress getAddressByReceiveAddressId(String receiveAddressId);
 }

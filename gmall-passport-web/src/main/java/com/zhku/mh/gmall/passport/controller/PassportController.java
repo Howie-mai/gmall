@@ -100,7 +100,12 @@ public class PassportController {
                 g = "0";
             }
             member.setGender(g);
-            userService.addOuthUser(member);
+            String id = userService.addOuthUser(member);
+            if(id != null){
+                member.setId(id);
+            }else {
+                return "error";
+            }
         }
 
         // 生成token

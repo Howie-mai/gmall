@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableDubbo
-@MapperScan(basePackages = "com.zhku.mh.gmall.cart.mapper")
+@MapperScan(basePackages = "com.zhku.mh.gmall.order.mapper")
 @SpringBootApplication
 public class GmallOrderServiceApplication {
 

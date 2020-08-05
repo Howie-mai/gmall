@@ -60,29 +60,23 @@ public class UserServiceImpl implements UserService {
                 if(StringUtils.isNotBlank(umsMemberStr)){
 
                     return JSON.parseObject(umsMemberStr, UmsMember.class);
-                }else {
-                    // 密码错误 或者 缓存莫得
-                    // 查询数据库
-                    UmsMember umsMemberDb = loginFromDb(umsMember);
-
-                    if(umsMemberDb != null){
-                        jedis.setex("user:" + umsMember.getPassword() + "_" + umsMember.getUsername() + ":info",
-                                60 * 60 * 24,JSON.toJSONString(umsMemberDb));
-
-
-                    }
-
-                    return umsMemberDb;
                 }
-            }else {
+
+                // 密码错误 或者 缓存莫得
                 // 查询数据库
+                UmsMember umsMemberDb = loginFromDb(umsMember);
+
+                if(umsMemberDb != null){
+                    jedis.setex("user:" + umsMember.getPassword() + "_" + umsMember.getUsername() + ":info",
+                            60 * 60 * 24,JSON.toJSONString(umsMemberDb));
+                }
+                return umsMemberDb;
             }
-
         }finally {
-            jedis.close();
+            if (jedis != null) {
+                jedis.close();
+            }
         }
-
-
         return null;
     }
 
@@ -96,13 +90,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addOuthUser(UmsMember member) {
+    public String addOuthUser(UmsMember member) {
         userMapper.insert(member);
+        return member.getId();
     }
 
     @Override
     public UmsMember selectOneByUmsMember(UmsMember member) {
         return userMapper.selectOne(member);
+    }
+
+    @Override
+    public UmsMemberReceiveAddress getAddressByReceiveAddressId(String receiveAddressId) {
+        return umsMemberReceiveAddressMapper.selectByPrimaryKey(receiveAddressId);
     }
 
     private UmsMember loginFromDb(UmsMember umsMember) {
