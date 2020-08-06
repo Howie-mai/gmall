@@ -410,21 +410,5 @@ public class DateUtils {
             calendar.setTime(date);
             return calendar.get(Calendar.MONTH) + 1;
         }
-
-
-        public static long getRemainTime(Date date){
-            Date now = new Date();
-            long nowMs = System.currentTimeMillis();
-            long endMs = getEndDate(now).getTime();
-            return endMs - nowMs;
-        }
-
-        public static long getRemainTimeByDate(Date date1,Date date2){
-            if(date1.after(date2)){
-                return date1.getTime() - date2.getTime();
-            }else {
-                return date2.getTime() - date1.getTime();
-            }
-        }
 }
 
