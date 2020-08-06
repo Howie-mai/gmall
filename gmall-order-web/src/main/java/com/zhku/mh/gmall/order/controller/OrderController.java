@@ -103,8 +103,6 @@ public class OrderController {
             List<OmsCartItem> cartList = cartService.getCartList(memberId);
             for (OmsCartItem cartItem : cartList) {
                 if("1".equals(cartItem.getIsChecked())){
-
-
                     // 获得订单详情列表
                     OmsOrderItem omsOrderItem = new OmsOrderItem();
 
