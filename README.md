@@ -19,3 +19,5 @@ passprot-web : 8085
 order-service ： dubbo(20884)
 order-web ： port 8086
 
+payment-service ： dubbo(20885)
+payment-web ： port 8087

@@ -1,10 +1,12 @@
 package com.zhku.mh.gmall.order.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.zhku.mh.gmall.bean.OmsOrder;
 import com.zhku.mh.gmall.bean.OmsOrderItem;
 import com.zhku.mh.gmall.order.mapper.OrderItemMapper;
 import com.zhku.mh.gmall.order.mapper.OrderMapper;
+import com.zhku.mh.gmall.service.CartService;
 import com.zhku.mh.gmall.service.OrderService;
 import com.zhku.mh.gmall.service.util.RedisUtil;
 import org.apache.commons.collections.CollectionUtils;
@@ -33,6 +35,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemMapper orderItemMapper;
+
+    @Reference
+    private CartService cartService;
 
     @Override
     public String checkTradeCode(String memberId, String tradeCode) {
@@ -83,6 +88,8 @@ public class OrderServiceImpl implements OrderService {
                 for (OmsOrderItem orderItem : omsOrderItems) {
                     orderItem.setOrderId(orderId);
                     orderItemMapper.insertSelective(orderItem);
+                    // 删除购物车
+//                    cartService.delCart(orderItem.getProductSkuId());
                 }
             }
 

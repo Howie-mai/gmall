@@ -46,12 +46,13 @@ public class OrderController {
     private SkuService skuService;
 
     @RequestMapping("/submitOrder")
-    public String submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode, HttpServletRequest request) {
+    public String submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode,
+                              HttpServletRequest request,Model model) {
 
         String memberId = String.valueOf(request.getSession().getAttribute("memberId"));
         String nickName = String.valueOf(request.getSession().getAttribute("nickName"));
         if ("null".equals(memberId) || "null".equals(nickName)) {
-            return "error";
+            return "redirect:http://localhost:8085/index?returnUrl=" + request.getRequestURL();
         }
 
         String success = orderService.checkTradeCode(memberId,tradeCode);
@@ -131,7 +132,9 @@ public class OrderController {
             orderService.saveOrder(omsOrder);
 
             // 重定向到支付系统
-
+            model.addAttribute("outTradeNo",outTradeNo.toString());
+            model.addAttribute("totalAmount",totalAmount);
+            return "redirect:http://localhost:8087";
         }
 
         return "tradeFail";

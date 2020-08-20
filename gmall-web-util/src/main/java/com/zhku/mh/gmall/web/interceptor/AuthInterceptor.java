@@ -58,7 +58,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (StringUtil.isNotBlank(token)) {
             String ip = CookieUtil.getIp(request);
 
-            String successJson = HttpClientUtil.doGet("http://passport.gmall.com:8085/verify?token=" + token + "&currentIp=" + ip);
+            String successJson = HttpClientUtil.doGet("http://localhost:8085/verify?token=" + token + "&currentIp=" + ip);
 
             successMap = JSON.parseObject(successJson, Map.class);
 
@@ -74,7 +74,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (!HttpClientUtil.SUCCESS.equals(success)) {
                 // 重定向passport登录
                 StringBuffer requestUrl = request.getRequestURL();
-                response.sendRedirect("http://passport.gmall.com:8085/index?returnUrl=" + requestUrl);
+                response.sendRedirect("http://localhost:8085/index?returnUrl=" + requestUrl);
                 return false;
             }
             // 需要将token携带的用户信息写入
