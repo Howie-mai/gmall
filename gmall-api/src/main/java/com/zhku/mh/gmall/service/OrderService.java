@@ -14,4 +14,6 @@ public interface OrderService {
     Object getTradeCode(String memberId);
 
     void saveOrder(OmsOrder omsOrder);
+
+    OmsOrder getOrderByOutTradeNo(String outTradeNo);
 }

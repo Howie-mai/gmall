@@ -26,6 +26,7 @@ public class AlipayConfig {
     public final static String format = "json";
     public final static String charset = "utf-8";
     public final static String sign_type = "RSA2";
+    public final static String productCode = "FAST_INSTANT_TRADE_PAY";
     public static String return_payment_url;
     public static String notify_payment_url;
     public static String return_order_url;
