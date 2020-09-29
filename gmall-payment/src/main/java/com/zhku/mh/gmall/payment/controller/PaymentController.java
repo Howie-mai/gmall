@@ -129,7 +129,12 @@ public class PaymentController {
         paymentService.savePaymentInfo(paymentInfo);
 
         // 向消息中间件发送一个检查支付状态(支付服务消费)的延迟消息队列
-
+        // 解决问题：定时任务。
+        // 在提交支付后，消息队列发送一个延迟执行的消息任务，
+        // 当该任务被支付服务执行时，在消费任务的程序中去查询当前交易的交易状态，
+        // 根据交易状态（支付结束）决定解除延迟任务还是继续再设置新的延迟惹任务
+        // 开启延迟队列配置： activemq.xml-> schedulerSupport=true
+        paymentService.sendDelayPaymentResultCheckQueue(outTradeNo,5);
 
         return form;
     }

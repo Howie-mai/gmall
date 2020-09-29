@@ -73,7 +73,7 @@ public class OrderController {
             omsOrder.setMemberUsername(nickName);
 
             // 外部订单号，用来和其他系统进行交互，防止重复 。 例如 ：支付宝的支付订单号
-            StringBuffer outTradeNo = new StringBuffer("gmall");
+            StringBuilder outTradeNo = new StringBuilder("gmall");
             outTradeNo.append(System.currentTimeMillis());
             SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDDHHmmss");
             outTradeNo.append(sdf.format(now));
@@ -96,7 +96,7 @@ public class OrderController {
             Date time = c.getTime();
             omsOrder.setReceiveTime(time);
             omsOrder.setSourceType(0);
-            omsOrder.setStatus("0");
+            omsOrder.setStatus(0);
             // 订单类型
             omsOrder.setOrderType(0);
             omsOrder.setTotalAmount(totalAmount);
