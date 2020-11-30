@@ -46,12 +46,13 @@ public class OrderController {
     private SkuService skuService;
 
     @RequestMapping("/submitOrder")
-    public String submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode, HttpServletRequest request) {
+    public String submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode,
+                              HttpServletRequest request,Model model) {
 
         String memberId = String.valueOf(request.getSession().getAttribute("memberId"));
         String nickName = String.valueOf(request.getSession().getAttribute("nickName"));
         if ("null".equals(memberId) || "null".equals(nickName)) {
-            return "error";
+            return "redirect:http://localhost:8085/index?returnUrl=" + request.getRequestURL();
         }
 
         String success = orderService.checkTradeCode(memberId,tradeCode);
@@ -72,7 +73,7 @@ public class OrderController {
             omsOrder.setMemberUsername(nickName);
 
             // 外部订单号，用来和其他系统进行交互，防止重复 。 例如 ：支付宝的支付订单号
-            StringBuffer outTradeNo = new StringBuffer("gmall");
+            StringBuilder outTradeNo = new StringBuilder("gmall");
             outTradeNo.append(System.currentTimeMillis());
             SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDDHHmmss");
             outTradeNo.append(sdf.format(now));
@@ -95,7 +96,7 @@ public class OrderController {
             Date time = c.getTime();
             omsOrder.setReceiveTime(time);
             omsOrder.setSourceType(0);
-            omsOrder.setStatus("0");
+            omsOrder.setStatus(0);
             // 订单类型
             omsOrder.setOrderType(0);
             omsOrder.setTotalAmount(totalAmount);
@@ -103,8 +104,6 @@ public class OrderController {
             List<OmsCartItem> cartList = cartService.getCartList(memberId);
             for (OmsCartItem cartItem : cartList) {
                 if("1".equals(cartItem.getIsChecked())){
-
-
                     // 获得订单详情列表
                     OmsOrderItem omsOrderItem = new OmsOrderItem();
 
@@ -133,7 +132,9 @@ public class OrderController {
             orderService.saveOrder(omsOrder);
 
             // 重定向到支付系统
-
+            model.addAttribute("outTradeNo",outTradeNo.toString());
+            model.addAttribute("totalAmount",totalAmount);
+            return "redirect:http://localhost:8087";
         }
 
         return "tradeFail";
