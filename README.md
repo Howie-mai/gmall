@@ -19,3 +19,6 @@ passprot-web : 8085
 order-service ： dubbo(20884)
 order-web ： port 8086
 
+seckill-service ： dubbo(20885)
+seckill-web ： port 8001
+

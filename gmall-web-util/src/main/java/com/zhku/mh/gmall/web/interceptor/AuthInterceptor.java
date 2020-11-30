@@ -11,6 +11,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +33,14 @@ public class AuthInterceptor implements HandlerInterceptor {
         //判断拦截的请求的访问的方法的注解（是否是需要拦截的）
         HandlerMethod hm = (HandlerMethod) handler;
         LoginRequired methodAnnotation = hm.getMethodAnnotation(LoginRequired.class);
+//        InvocationHandler invocationHandler = Proxy.getInvocationHandler(methodAnnotation);
+//        Field value = invocationHandler.getClass().getDeclaredField("memberValues");
+//        value.setAccessible(true);
+//        Map<String, Object> memberValues = (Map<String, Object>) value.get(invocationHandler);
+//        String val = (String) memberValues.get("value");
+//        val = "b";
+//        memberValues.put("value", val);
+
         if (methodAnnotation == null) {
             System.out.println("不需要拦截");
             return true;
